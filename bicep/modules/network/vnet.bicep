@@ -25,7 +25,6 @@ param suffix string
 var vnetAddressCIDR = '10.0.0.0/16'
 var webAppSubnetCIDR = '10.0.1.0/24'
 var peSubnetCIDR = '10.0.2.0/24'
-var jumpboxSubnetCIDR = '10.0.3.0/24'
 var appgwSyubnetCIDR = '10.0.4.0/24'
 
 resource nsgWebapp 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
