@@ -61,14 +61,8 @@ jobs:
 
       - name: Destroy VM if exists
         run: |
-          if [ "$(az vm list -d -o table --query "[?name=='jumpbox']")" = "" ];
-          then
-              echo "No VM was found."
-          else
-              echo "VM was found."
-              az vm delete --resource-group ${{ env.RESOURCE_GROUP_NAME }} --name jumpbox --force-deletion
-          fi
-          
+          az vm delete --resource-group ${{ env.RESOURCE_GROUP_NAME }} --name jumpbox --force-deletion
+                    
       - name: deploy
         id: createResources
         uses: azure/arm-deploy@v1
