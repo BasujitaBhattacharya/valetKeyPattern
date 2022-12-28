@@ -61,7 +61,7 @@ jobs:
 
       - name: Destroy VM if exists
         run: |
-          az vm delete --resource-group ${{ env.RESOURCE_GROUP_NAME }} --name jumpbox --force-deletion
+          az vm delete --resource-group ${{ env.RESOURCE_GROUP_NAME }} --name jumpbox --yes
                     
       - name: deploy
         id: createResources
