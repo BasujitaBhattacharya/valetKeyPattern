@@ -13,7 +13,7 @@ resource storageBlobDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
 }
 
 resource storageFileDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: privateStorageBlobDnsZoneName
+  name: privateFileShareDnsZoneName
   location: 'global'
 }
 
