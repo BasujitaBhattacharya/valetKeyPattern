@@ -3,6 +3,7 @@ param suffix string
 param appInsightName string
 param storageName string
 param subnetId string
+param functionContentShareName string
 
 var appServiceName = 'asp-function-${suffix}'
 
@@ -56,7 +57,7 @@ resource function 'Microsoft.Web/sites@2022-03-01' = {
         }       
         {
           name: 'WEBSITE_CONTENTSHARE'
-          value: 'processorapp092'
+          value: functionContentShareName
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
