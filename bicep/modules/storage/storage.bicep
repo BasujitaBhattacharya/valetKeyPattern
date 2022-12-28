@@ -1,7 +1,6 @@
 param location string
 param suffix string
 
-var functionContentShareName = 'function-content-share'
 
 resource strApp 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   name: 'str${suffix}'
