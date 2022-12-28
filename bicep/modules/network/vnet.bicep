@@ -72,15 +72,6 @@ resource nsgAppGw 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
   }
 }
 
-resource nsgJumpbox 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
-  name: 'nsg-jumpbox'
-  location: location
-  properties: {
-    securityRules: [
-    ]
-  }
-}
-
 resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: 'vnet-webapp-${suffix}'
   location: location
@@ -115,16 +106,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
           privateEndpointNetworkPolicies: 'Disabled'
           privateLinkServiceNetworkPolicies: 'Enabled'
         }
-      }
-      {
-        name: 'snet-jumpbox'
-        properties: {
-          addressPrefix: jumpboxSubnetCIDR
-          networkSecurityGroup: {
-            id: nsgJumpbox.id
-          }
-        }
-      }      
+      }     
       {
         name: 'snet-appgw'
         properties: {
@@ -140,6 +122,5 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' = {
 
 output subnetDelegationId string = vnet.properties.subnets[0].id
 output subnetPeId string = vnet.properties.subnets[1].id
-output subnetJumpboxId string = vnet.properties.subnets[2].id
 output vnetName string = vnet.name
 output vnetId string = vnet.id

@@ -30,16 +30,16 @@ module vnet 'modules/network/vnet.bicep' = {
   }
 }
 
-module jumpbox 'modules/jumpbox/jumpbox.bicep' = {
-  scope: resourceGroup(rg.name)
-  name: 'jumpbox'
-  params: {
-    adminPassword: adminPassword
-    adminUsername: adminUsername
-    location: location
-    subnetId: vnet.outputs.subnetJumpboxId
-  }
-}
+// module jumpbox 'modules/jumpbox/jumpbox.bicep' = {
+//   scope: resourceGroup(rg.name)
+//   name: 'jumpbox'
+//   params: {
+//     adminPassword: adminPassword
+//     adminUsername: adminUsername
+//     location: location
+//     subnetId: vnet.outputs.subnetJumpboxId
+//   }
+// }
 
 
 module monitoring 'modules/monitoring/monitoring.bicep' = {
