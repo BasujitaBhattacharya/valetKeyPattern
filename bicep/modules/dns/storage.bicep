@@ -5,13 +5,19 @@ param vnetName string
 param vnetId string
 
 var privateStorageBlobDnsZoneName = 'privatelink.blob.${environment().suffixes.storage}'
+var privateFileShareDnsZoneName = 'privatelink.file.${environment().suffixes.storage}'
 
 resource storageBlobDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   name: privateStorageBlobDnsZoneName
   location: 'global'
 }
 
-resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-05-01' = {
+resource storageFileDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: privateStorageBlobDnsZoneName
+  location: 'global'
+}
+
+resource privateEndpointBlob 'Microsoft.Network/privateEndpoints@2021-05-01' = {
   name: 'pe-blob'
   location: location
   properties: {
@@ -32,8 +38,29 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-05-01' = {
   }
 }
 
-resource networkLinkSpokeDB 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  name: '${storageBlobDnsZone.name}/${vnetName}'
+resource privateEndpointFile 'Microsoft.Network/privateEndpoints@2021-05-01' = {
+  name: 'pe-file'
+  location: location
+  properties: {
+    subnet: {
+      id: subnetId
+    }
+    privateLinkServiceConnections: [
+      {
+        name: 'pe-file'
+        properties: {
+          privateLinkServiceId: storageId
+          groupIds: [
+            'file'
+          ]
+        }
+      }
+    ]
+  }
+}
+
+resource networkLinkFile 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  name: '${storageFileDnsZone.name}/${vnetName}'
   location: 'global'
   properties: {
     virtualNetwork: {
@@ -43,14 +70,14 @@ resource networkLinkSpokeDB 'Microsoft.Network/privateDnsZones/virtualNetworkLin
   }
 }
 
-resource dnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-05-01' = {
-  name: '${privateEndpoint.name}/default'
+resource dnsZoneGroupFile 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-05-01' = {
+  name: '${privateEndpointFile.name}/default'
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: storageBlobDnsZone.name
+        name: storageFileDnsZone.name
         properties: {
-          privateDnsZoneId: storageBlobDnsZone.id
+          privateDnsZoneId: storageFileDnsZone.id
         }
       }         
     ]

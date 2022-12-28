@@ -1,13 +1,5 @@
 targetScope = 'subscription'
 
-@secure()
-@description('The username of the admin user')
-param adminUsername string
-
-@secure()
-@description('The password of the admin user')
-param adminPassword string
-
 @description('The location of the Azure resources')
 param location string
 
