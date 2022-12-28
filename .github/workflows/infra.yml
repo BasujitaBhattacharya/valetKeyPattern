@@ -79,6 +79,13 @@ jobs:
           value: ${{ steps.createResources.outputs.storageName }}
           pa_token: ${{ secrets.PA_TOKEN }}          
             
+      - uses: gliech/create-github-secret-action@v1
+        name: Write AppGW SubnetId
+        with:
+          name: APPLICATION_GATEWAY_SUBNET_ID
+          value: ${{ steps.createResources.outputs.appGwSubnetId }}
+          pa_token: ${{ secrets.PA_TOKEN }}    
+
 
 
     

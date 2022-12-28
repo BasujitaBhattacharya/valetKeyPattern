@@ -66,3 +66,4 @@ module dnsStorage 'modules/dns/storage.bicep' = {
 
 output functionName string = function.outputs.functionName
 output storageName string = storage.outputs.storageAccountName
+output appGwSubnetId string = vnet.outputs.subnetAppGwId
