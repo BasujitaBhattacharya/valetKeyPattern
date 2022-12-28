@@ -59,6 +59,17 @@ resource privateEndpointFile 'Microsoft.Network/privateEndpoints@2021-05-01' = {
   }
 }
 
+resource networkLinkStorage 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  name: '${storageBlobDnsZone.name}/${vnetName}'
+  location: 'global'
+  properties: {
+    virtualNetwork: {
+      id: vnetId
+    }
+    registrationEnabled: false
+  }
+}
+
 resource networkLinkFile 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
   name: '${storageFileDnsZone.name}/${vnetName}'
   location: 'global'
@@ -66,7 +77,7 @@ resource networkLinkFile 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@
     virtualNetwork: {
       id: vnetId
     }
-    registrationEnabled: true
+    registrationEnabled: false
   }
 }
 
