@@ -57,7 +57,7 @@ resource function 'Microsoft.Web/sites@2022-03-01' = {
         }       
         {
           name: 'WEBSITE_CONTENTSHARE'
-          value: 'functionContentShare'
+          value: 'funcshare'
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
