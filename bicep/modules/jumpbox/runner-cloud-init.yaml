@@ -1,0 +1,43 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - curl
+  - git
+  - install
+  - ca-certificates
+  - gnupg
+  - lsb-release
+  - jq
+runcmd:
+  # Installing azure cli
+  - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+  
+  # Install dotnet 6
+  - wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+  - sudo dpkg -i packages-microsoft-prod.deb
+  - rm packages-microsoft-prod.deb
+  - sudo apt-get update
+  - sudo apt-get install -y dotnet-sdk-6.0
+
+  # Steps for GitHub runner   
+  - mkdir /actions-runner
+  - cd /actions-runner
+
+  # Thanks to https://developer.github.com/v3/actions/self-hosted-runners/ for the GitHub API stuff
+  - 'RUNNERTOKEN=$(curl -s -XPOST -H "authorization: token _REPLACETOKEN_" https://api.github.com/repos/_REPLACEREPO_/actions/runners/registration-token | jq -r .token)'  
+  - curl -s -O -L https://github.com/actions/runner/releases/download/v_REPLACEVER_/actions-runner-linux-x64-_REPLACEVER_.tar.gz
+  - tar xzf ./actions-runner-linux-x64-_REPLACEVER_.tar.gz
+
+  # I need to put RUNNER_ALLOW_RUNASROOT=1 to allow the below to run as root (because that's what happens since the runner is configured & run as part of cloud-init)
+  # The ghrunner user is not really used except for me to SSH into it if needed
+  - RUNNER_ALLOW_RUNASROOT=1 ./config.sh --url https://github.com/_REPLACEREPO_ --token $RUNNERTOKEN --unattended
+  # I used to run the runner immediately but now I want to make it a service so I can reuse the VM and cache later
+  # - RUNNER_ALLOW_RUNASROOT=1 ./run.sh --unattended
+  - RUNNER_ALLOW_RUNASROOT=1 ./svc.sh install 
+  - RUNNER_ALLOW_RUNASROOT=1 ./svc.sh start
+  - RUNNER_ALLOW_RUNASROOT=1 ./svc.sh status
+  - chown -R ghrunner /actions-runner 
+  - chown -R ghrunner /build-cache    
+
