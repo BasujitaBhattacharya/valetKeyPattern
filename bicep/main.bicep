@@ -48,8 +48,7 @@ module function 'modules/function/function.bicep' = {
     location: location
     storageName: storage.outputs.storageAccountName
     suffix: suffix
-    subnetId: vnet.outputs.subnetDelegationId
-    functionContentShareName: storage.outputs.functionShareName
+    subnetId: vnet.outputs.subnetDelegationId    
   }
 }
 
