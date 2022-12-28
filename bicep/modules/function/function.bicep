@@ -2,6 +2,7 @@ param location string
 param suffix string
 param appInsightName string
 param storageName string
+param subnetId string
 
 var appServiceName = 'asp-function-${suffix}'
 
@@ -26,12 +27,14 @@ resource serverFarm 'Microsoft.Web/serverfarms@2020-06-01' = {
   }
 }
 
-resource function 'Microsoft.Web/sites@2020-06-01' = {
+resource function 'Microsoft.Web/sites@2022-03-01' = {
   name: 'func-${suffix}'
   location: location
-  kind: 'functionapp'
+  kind: 'functionapp'  
   properties: {
+    httpsOnly: true
     serverFarmId: serverFarm.id    
+    virtualNetworkSubnetId: subnetId
     siteConfig: {
       netFrameworkVersion: 'v6.0'
       appSettings: [

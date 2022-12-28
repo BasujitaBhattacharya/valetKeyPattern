@@ -14,9 +14,11 @@ namespace ValetKey
 {
     public static class ValetKey
     {
+        // Because we use AppGW to call the Azure Function, we use the "anonymous" authorization level
+        // This is for demo purposes only, in production you should use a more secure authorization level or JWT token        
         [FunctionName("GetBlobUrl")]        
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "{blobname}")] HttpRequest req,            
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "{blobname}")] HttpRequest req,            
             [Blob("pictures/{blobname}", FileAccess.Read)] BlobClient blobClient,
             ILogger log)
         {
