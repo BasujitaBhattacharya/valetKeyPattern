@@ -30,18 +30,6 @@ module vnet 'modules/network/vnet.bicep' = {
   }
 }
 
-// module jumpbox 'modules/jumpbox/jumpbox.bicep' = {
-//   scope: resourceGroup(rg.name)
-//   name: 'jumpbox'
-//   params: {
-//     adminPassword: adminPassword
-//     adminUsername: adminUsername
-//     location: location
-//     subnetId: vnet.outputs.subnetJumpboxId
-//   }
-// }
-
-
 module monitoring 'modules/monitoring/monitoring.bicep' = {
   scope: resourceGroup(rg.name)
   name: 'monitoring'
@@ -85,3 +73,4 @@ module dnsStorage 'modules/dns/storage.bicep' = {
 }
 
 output functionName string = function.outputs.functionName
+output storageName string = storage.outputs.storageAccountName

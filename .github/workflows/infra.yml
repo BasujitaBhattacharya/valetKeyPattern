@@ -53,15 +53,6 @@ jobs:
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Replace the value in the cloud init to configure the runner
-      # - name: Replace values cloud init file
-      #   run: |
-      #     sed -i "s|_REPLACETOKEN_|${{ github.token }}|g; s|_REPLACEREPO_|${{ github.event.repository.name }}|g; s|_REPLACEVER_|${{ env.RUNNER_VERSION }}|g" bicep/modules/jumpbox/runner-cloud-init.yaml
-
-      # - name: Destroy VM if exists
-      #   run: |
-      #     az vm delete --resource-group ${{ env.RESOURCE_GROUP_NAME }} --name jumpbox --yes
                     
       - name: deploy
         id: createResources
@@ -80,7 +71,14 @@ jobs:
           name: FUNCTION_NAME
           value: ${{ steps.createResources.outputs.functionName }}
           pa_token: ${{ secrets.PA_TOKEN }}
-                        
+
+      - uses: gliech/create-github-secret-action@v1
+        name: Write Storage Name
+        with:
+          name: STORAGE_NAME
+          value: ${{ steps.createResources.outputs.storageName }}
+          pa_token: ${{ secrets.PA_TOKEN }}          
+            
 
 
     

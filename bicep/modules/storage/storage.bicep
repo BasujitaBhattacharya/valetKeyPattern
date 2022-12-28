@@ -13,9 +13,7 @@ resource strApp 'Microsoft.Storage/storageAccounts@2022-05-01' = {
     allowBlobPublicAccess: false
     networkAcls: {
       bypass: 'AzureServices'
-      defaultAction: 'Deny'
-      virtualNetworkRules: [        
-      ]
+      defaultAction: 'Deny'      
     }
   }
 }
