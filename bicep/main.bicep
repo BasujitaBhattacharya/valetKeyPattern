@@ -68,6 +68,19 @@ module function 'modules/function/function.bicep' = {
     location: location
     storageName: storage.outputs.storageAccountName
     suffix: suffix
+    subnetId: vnet.outputs.subnetDelegationId
+  }
+}
+
+module dnsStorage 'modules/dns/storage.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'dns'
+  params: {
+    location: location
+    storageId: storage.outputs.storageId
+    subnetId: vnet.outputs.subnetPeId
+    vnetId: vnet.outputs.vnetId
+    vnetName: vnet.outputs.vnetName
   }
 }
 

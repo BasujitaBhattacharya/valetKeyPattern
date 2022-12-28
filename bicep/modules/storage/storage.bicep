@@ -11,6 +11,12 @@ resource strApp 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   properties: {
     accessTier: 'Hot'
     allowBlobPublicAccess: false
+    networkAcls: {
+      bypass: 'AzureServices'
+      defaultAction: 'Deny'
+      virtualNetworkRules: [        
+      ]
+    }
   }
 }
 
@@ -19,3 +25,4 @@ resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@20
 }
 
 output storageAccountName string = strApp.name
+output storageId string = strApp.id
