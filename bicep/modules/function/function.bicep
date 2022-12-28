@@ -3,7 +3,6 @@ param suffix string
 param appInsightName string
 param storageName string
 param subnetId string
-param functionContentShareName string
 
 var appServiceName = 'asp-function-${suffix}'
 
@@ -38,6 +37,7 @@ resource function 'Microsoft.Web/sites@2022-03-01' = {
     virtualNetworkSubnetId: subnetId
     siteConfig: {
       netFrameworkVersion: 'v6.0'
+      vnetRouteAllEnabled: true
       appSettings: [
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
@@ -57,7 +57,7 @@ resource function 'Microsoft.Web/sites@2022-03-01' = {
         }       
         {
           name: 'WEBSITE_CONTENTSHARE'
-          value: functionContentShareName
+          value: 'functionContentShare'
         }
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
@@ -68,9 +68,9 @@ resource function 'Microsoft.Web/sites@2022-03-01' = {
           value: 'dotnet'
         }
         {
-          name: 'WEBSITE_NODE_DEFAULT_VERSION'
-          value: '~12'
-        }
+          name: 'WEBSITE_CONTENTOVERVNET'
+          value: '1'
+        }        
       ]
     }
   }

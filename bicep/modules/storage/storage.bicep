@@ -24,10 +24,6 @@ resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@20
   name: '${strApp.name}/default/pictures'
 }
 
-resource functionContentShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2021-04-01' = {
-  name: '${strApp.name}/default/${functionContentShareName}'
-}
-
 output storageAccountName string = strApp.name
 output storageId string = strApp.id
-output functionShareName string = functionContentShare.name
+
