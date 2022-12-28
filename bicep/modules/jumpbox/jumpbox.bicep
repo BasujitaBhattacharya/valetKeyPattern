@@ -96,8 +96,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2020-06-01' = {
     osProfile: {
       computerName: 'runner'
       adminUsername: adminUsername
-      adminPassword: adminPassword
-      customData: loadFileAsBase64('runner-cloud-init.yaml')
+      adminPassword: adminPassword      
     }
     diagnosticsProfile: {
       bootDiagnostics: {
