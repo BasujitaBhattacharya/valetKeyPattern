@@ -120,5 +120,24 @@ You will need to create some [GitHub repository secrets](https://docs.github.com
 
 Now you can go to the Actions tab and Run the **Create Azure Resources** [GitHub Actions](https://docs.github.com/en/actions).
 
+## Upload images
+
+Now, you need to upload the image in the storage, you will have one that contains a container called pictures
+
+![container](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/refactoring/diagram/container.png)
+
+Go to this container and upload the 3 pictures you will find in the GitHub repository under the **pictures** folder.
+
+![pictures](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/refactoring/diagram/upload.png)
+
+Next, go to the same Azure Storage in the networking tab and disable public network access.  You want to communicate with the storage only thru private endpoint.
+
+![pictures](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/refactoring/diagram/disablednetwork.png)
+
+## Deploy Azure Function
+
 Once this is done you can deploy the Azure Function, to do so run the Action called **Deploy Azure Function**
 
+## Deploy and configure the Application Gateway
+
+Finally, you need to deploy and configure the Application Gateway.  To do so, run the GitHub action called

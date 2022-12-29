@@ -26,8 +26,8 @@ jobs:
   create-azure-resources:
 
     env:      
-      RESOURCE_GROUP_NAME: rg-valet-key-demo
-      LOCATION: 'eastus'
+      RESOURCE_GROUP_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
+      LOCATION: ${{ secrets.LOCATION }}
 
     runs-on: ubuntu-latest
 
