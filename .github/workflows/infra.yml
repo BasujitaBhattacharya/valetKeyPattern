@@ -83,5 +83,8 @@ jobs:
         run: |
           az storage blob upload --account-name ${{ steps.createResources.outputs.storageName }} --container-name pictures --name corgi.jpg --file pictures/corgi.jpg --auth-mode login
 
+      - name: Disable storage public access
+        run : |
+          az storage account update --name ${{ steps.createResources.outputs.storageName }} --resource-group ${{ env.RESOURCE_GROUP_NAME }} --allow-blob-public-access false
 
     

@@ -11,10 +11,10 @@ resource strApp 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   kind: 'StorageV2'
   properties: {
     accessTier: 'Hot'    
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
     networkAcls: {
       bypass: 'AzureServices'
-      defaultAction: 'Deny'      
+      defaultAction: 'Allow'      
     }
   }
 }
