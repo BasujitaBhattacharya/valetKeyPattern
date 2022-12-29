@@ -1,7 +1,8 @@
 param location string
 param suffix string
 param appInsightName string
-param storageName string
+param storageFunctionName string
+param storagePicturesName string
 param subnetId string
 
 var appServiceName = 'asp-function-${suffix}'
@@ -10,9 +11,14 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' existing
   name: appInsightName
 }
 
-resource storage 'Microsoft.Storage/storageAccounts@2021-04-01' existing = {
-  name: storageName
+resource storageFunction 'Microsoft.Storage/storageAccounts@2021-04-01' existing = {
+  name: storageFunctionName
 }
+
+resource storagePicture 'Microsoft.Storage/storageAccounts@2021-04-01' existing = {
+  name: storagePicturesName
+}
+
 
 resource serverFarm 'Microsoft.Web/serverfarms@2020-06-01' = {
   name: appServiceName
@@ -49,11 +55,15 @@ resource function 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'AzureWebJobsStorage'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storage.listKeys().keys[0].value}'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storageFunction.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageFunction.listKeys().keys[0].value}'
+        }
+        {
+          name: 'PicturesStorage'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storagePicture.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storagePicture.listKeys().keys[0].value}'          
         }
         {
           name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storage.listKeys().keys[0].value}'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storageFunction.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageFunction.listKeys().keys[0].value}'
         }       
         {
           name: 'WEBSITE_CONTENTSHARE'
@@ -71,5 +81,6 @@ resource function 'Microsoft.Web/sites@2022-03-01' = {
     }
   }
 }
+
 
 output functionName string = function.name

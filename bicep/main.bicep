@@ -46,7 +46,8 @@ module function 'modules/function/function.bicep' = {
   params: {
     appInsightName: monitoring.outputs.insightName
     location: location
-    storageName: storage.outputs.storageFunctionName
+    storageFunctionName: storage.outputs.storageFunctionName
+    storagePicturesName: storage.outputs.storageAccountName
     suffix: suffix
     subnetId: vnet.outputs.subnetDelegationId    
   }
