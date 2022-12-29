@@ -41,11 +41,10 @@ namespace ValetKey
                 Protocol = SasProtocol.Https
             };
             blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
-            var sasToken = blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential(blobClient.AccountName, 
-                                                               Environment.GetEnvironmentVariable("PicturesStorageKey")));
-            //var sasUri = blobClient.GenerateSasUri(blobSasBuilder);
+
+            var sasUri = blobClient.GenerateSasUri(blobSasBuilder);
             
-            return new OkObjectResult(sasToken.ToString());
+            return new OkObjectResult(sasUri.ToString());
         }
     }
 }
