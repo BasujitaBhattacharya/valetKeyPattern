@@ -12,7 +12,7 @@ param certificate_password string
 var suffix = uniqueString(resourceGroup().id)
 
 var appgwName = 'agw-${suffix}'
-var appGwId = resourceId('Microsoft.Network/applicationGateways',appgwName)
+var appGwId = subscriptionResourceId('Microsoft.Network/applicationGateways',appgwName)
 
 resource pip 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
   name: 'pip-gw-${suffix}'

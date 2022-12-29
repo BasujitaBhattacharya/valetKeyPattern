@@ -140,4 +140,8 @@ Once this is done you can deploy the Azure Function, to do so run the Action cal
 
 ## Deploy and configure the Application Gateway
 
-Finally, you need to deploy and configure the Application Gateway.  To do so, run the GitHub action called
+Finally, you need to deploy and configure the Application Gateway.  To do so, run the GitHub action called **Create and Configure Application Gateway**.
+
+## Configure your custom domain
+
+In the previous steps you created a secret called **STORAGE_CUSTOM_DOMAIN**.
