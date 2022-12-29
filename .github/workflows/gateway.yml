@@ -50,7 +50,7 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}                              
-          template: ./bicep/appgateway.bicep
+          template: ./bicep/appgateway.json
           parameters: certificate_data=${{ secrets.CERTIFICATE_DATA }} certificate_password=${{ secrets.CERTIFICATE_PASSWORD }}  location=${{ env.LOCATION }} subnetId=${{ secrets.APPLICATION_GATEWAY_SUBNET_ID }} storageName=${{ secrets.STORAGE_NAME }} customDomainStorageFQDN=${{ secrets.STORAGE_CUSTOM_DOMAIN }}
 
 

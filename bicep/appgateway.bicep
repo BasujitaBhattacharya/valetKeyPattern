@@ -12,7 +12,7 @@ param certificate_password string
 var suffix = uniqueString(resourceGroup().id)
 
 var appgwName = 'agw-${suffix}'
-//var appGwId = subscriptionResourceId('Microsoft.Network/applicationGateways', appgwName)
+var appGwId = resourceId('Microsoft.Network/applicationGateways',appgwName)
 
 resource pip 'Microsoft.Network/publicIPAddresses@2020-06-01' = {
   name: 'pip-gw-${suffix}'
@@ -102,7 +102,7 @@ resource appgw 'Microsoft.Network/ApplicationGateways@2020-06-01' = {
                   hostName: '${storageName}.blob.${environment().suffixes.storage}'
                   requestTimeout: 20
                   probe: {                                                
-                      id: '${subscriptionResourceId('Microsoft.Network/applicationGateways', appgwName)}/probes/storageProbe'
+                      id: '${appGwId}/probes/storageProbe'
                   }
               }
           }                                   
@@ -112,13 +112,13 @@ resource appgw 'Microsoft.Network/ApplicationGateways@2020-06-01' = {
               name: 'https-listener-storage'
               properties: {
                   frontendIPConfiguration: {
-                      id: '${subscriptionResourceId('Microsoft.Network/applicationGateways', appgwName)}/frontendIPConfigurations/appGwPublicFrontendIp'
+                      id: '${appGwId}/frontendIPConfigurations/appGwPublicFrontendIp'
                   }
                   frontendPort: {
-                      id: '${subscriptionResourceId('Microsoft.Network/applicationGateways', appgwName)}/frontendPorts/port_443'
+                      id: '${appGwId}/frontendPorts/port_443'
                   }
                   sslCertificate: {
-                      id: '${subscriptionResourceId('Microsoft.Network/applicationGateways', appgwName)}/sslCertificates/wild'
+                      id: '${appGwId}/sslCertificates/wild'
                   }                  
                   hostNames: [
                     customDomainStorageFQDN
@@ -135,13 +135,13 @@ resource appgw 'Microsoft.Network/ApplicationGateways@2020-06-01' = {
                   ruleType: 'Basic'
                   priority: 100
                   httpListener: {
-                      id: '${subscriptionResourceId('Microsoft.Network/applicationGateways', appgwName)}/httpListeners/https-listener-storage'
+                      id: '${appGwId}/httpListeners/https-listener-storage'
                   }
                   backendAddressPool: {
-                      id: '${subscriptionResourceId('Microsoft.Network/applicationGateways', appgwName)}/backendAddressPools/storagePool'
+                      id: '${appGwId}/backendAddressPools/storagePool'
                   }
                   backendHttpSettings: {
-                      id: '${subscriptionResourceId('Microsoft.Network/applicationGateways', appgwName)}/backendHttpSettingsCollection/https-settings-storage'
+                      id: '${appGwId}/backendHttpSettingsCollection/https-settings-storage'
                   }
               }
           }                                        
