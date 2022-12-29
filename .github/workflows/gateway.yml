@@ -45,7 +45,7 @@ jobs:
       # The build step is to be sure no errors are present
       # in the bicep template
       - name: Validate that bicep builds
-        run: az bicep build -f gateway.bicep
+        run: az bicep build -f appgateway.bicep
         working-directory: ./bicep
 
       - name: Azure Login
