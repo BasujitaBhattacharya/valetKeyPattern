@@ -57,7 +57,7 @@ jobs:
         with:
           resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}                              
           template: ./bicep/appgateway.bicep
-          parameters: location=${{ env.LOCATION }} resourceGroupName=${{ secrets.RESOURCE_GROUP_NAME }} subnetId=${{ secrets.APPLICATION_GATEWAY_SUBNET_ID }} storageName=${{ secrets.STORAGE_NAME }} customDomainStorageFQDN=${{ secrets.STORAGE_CUSTOM_DOMAIN }}
+          parameters: location=${{ env.LOCATION }} subnetId=${{ secrets.APPLICATION_GATEWAY_SUBNET_ID }} storageName=${{ secrets.STORAGE_NAME }} customDomainStorageFQDN=${{ secrets.STORAGE_CUSTOM_DOMAIN }}
 
 
 
