@@ -5,9 +5,9 @@ param vnetName string
 param vnetId string
 
 var privateStorageBlobDnsZoneName = 'privatelink.blob.${environment().suffixes.storage}'
-var privateFileShareDnsZoneName = 'privatelink.file.${environment().suffixes.storage}'
-var privateQueueShareDnsZoneName = 'privatelink.queue.${environment().suffixes.storage}'
-var privateTableShareDnsZoneName = 'privatelink.table.${environment().suffixes.storage}'
+// var privateFileShareDnsZoneName = 'privatelink.file.${environment().suffixes.storage}'
+// var privateQueueShareDnsZoneName = 'privatelink.queue.${environment().suffixes.storage}'
+// var privateTableShareDnsZoneName = 'privatelink.table.${environment().suffixes.storage}'
 
 resource storageBlobDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   name: privateStorageBlobDnsZoneName

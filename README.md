@@ -119,3 +119,6 @@ You will need to create some [GitHub repository secrets](https://docs.github.com
 ## Run Create Azure Resources GitHub Action
 
 Now you can go to the Actions tab and Run the **Create Azure Resources** [GitHub Actions](https://docs.github.com/en/actions).
+
+Once this is done you can deploy the Azure Function, to do so run the Action called **Deploy Azure Function**
+
