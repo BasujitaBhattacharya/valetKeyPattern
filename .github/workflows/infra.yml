@@ -77,14 +77,6 @@ jobs:
         with:
           name: APPLICATION_GATEWAY_SUBNET_ID
           value: ${{ steps.createResources.outputs.appGwSubnetId }}
-          pa_token: ${{ secrets.PA_TOKEN }}    
-
-      - name: Upload pictures to Storage
-        run: |
-          az storage blob upload --account-name ${{ steps.createResources.outputs.storageName }} --container-name pictures --name corgi.jpg --file pictures/corgi.jpg --auth-mode login
-
-      - name: Disable storage public access
-        run : |
-          az storage account update --name ${{ steps.createResources.outputs.storageName }} --resource-group ${{ env.RESOURCE_GROUP_NAME }} --allow-blob-public-access false
+          pa_token: ${{ secrets.PA_TOKEN }}
 
     
