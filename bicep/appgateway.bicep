@@ -119,8 +119,7 @@ resource appgw 'Microsoft.Network/ApplicationGateways@2020-06-01' = {
                   }
                   sslCertificate: {
                       id: '${appGwId}/sslCertificates/wild'
-                  }
-                  hostName: customDomainStorageFQDN
+                  }                  
                   hostNames: [
                     customDomainStorageFQDN
                   ]
