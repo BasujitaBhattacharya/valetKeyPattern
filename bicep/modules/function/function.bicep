@@ -66,11 +66,7 @@ resource function 'Microsoft.Web/sites@2022-03-01' = {
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: 'dotnet'
-        }
-        {
-          name: 'WEBSITE_CONTENTOVERVNET'
-          value: '1'
-        }        
+        }    
       ]
     }
   }
