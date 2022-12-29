@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Azure.Storage.Blobs;
 using Azure.Storage.Sas;
+using Azure.Storage;
 
 namespace ValetKey
 {
@@ -40,10 +41,11 @@ namespace ValetKey
                 Protocol = SasProtocol.Https
             };
             blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
+            var sasToken = blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential(blobClient.AccountName, 
+                                                               Environment.GetEnvironmentVariable("PicturesStorageKey")));
+            //var sasUri = blobClient.GenerateSasUri(blobSasBuilder);
             
-            var sasUri = blobClient.GenerateSasUri(blobSasBuilder);
-            
-            return new OkObjectResult(sasUri.ToString());
+            return new OkObjectResult(sasToken.ToString());
         }
     }
 }
