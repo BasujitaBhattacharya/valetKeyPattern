@@ -9,11 +9,7 @@ param certificate_data string
 @secure()
 param certificate_password string
 
-resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
-    name: resourceGroup().name    
-}
-
-var suffix = uniqueString(rg.id)
+var suffix = uniqueString(resourceGroup().id)
 
 var appgwName = 'agw-${suffix}'
 var appGwId = resourceId('Microsoft.Network/applicationGateways',appgwName)
