@@ -7,7 +7,7 @@ The SAS Token is returned using an Azure Function.
 # Architecture
 
 
-![architecture](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/refactoring/diagram/architecture.drawio.png)
+![architecture](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/main/diagram/architecture.drawio.png)
 
 In this example the Azure Function doesn't use a private endpoint and this is for simplicity purpose.  In **production** all traffic should pass in the Application Gateway with a WAF.
 
