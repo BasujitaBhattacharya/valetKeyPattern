@@ -1,0 +1,90 @@
+#
+# Notice: Any links, references, or attachments that contain sample scripts, code, or commands comes with the following notification.
+#
+# This Sample Code is provided for the purpose of illustration only and is not intended to be used in a production environment.
+# THIS SAMPLE CODE AND ANY RELATED INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+# INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
+#
+# We grant You a nonexclusive, royalty-free right to use and modify the Sample Code and to reproduce and distribute the object code form of the Sample Code,
+# provided that You agree:
+#
+# (i) to not use Our name, logo, or trademarks to market Your software product in which the Sample Code is embedded;
+# (ii) to include a valid copyright notice on Your software product in which the Sample Code is embedded; and
+# (iii) to indemnify, hold harmless, and defend Us and Our suppliers from and against any claims or lawsuits,
+# including attorneys’ fees, that arise or result from the use or distribution of the Sample Code.
+#
+# Please note: None of the conditions outlined in the disclaimer above will superseded the terms and conditions contained within the Premier Customer Services Description.
+#
+# DEMO POC - "AS IS"
+
+name: Create and Configure Application Gateway
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'bicep/**/appgateway.bicep'
+      - '.github/workflows/gateway.yml'
+  workflow_dispatch:     
+
+jobs:
+  create-azure-resources:
+
+    env:
+      DEPLOYMENT_NAME: gateway-deployment
+      RESOURCE_GROUP_NAME: rg-valet-key-demo
+      LOCATION: 'eastus'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - uses: actions/checkout@v2
+
+      # The build step is to be sure no errors are present
+      # in the bicep template
+      - name: Validate that bicep builds
+        run: az bicep build -f gateway.bicep
+        working-directory: ./bicep
+
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+                    
+      - name: deploy
+        id: createResources
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          scope: subscription
+          region: ${{ env.LOCATION }}
+          deploymentName:  ${{ env.DEPLOYMENT_NAME }}
+          template: ./bicep/main.bicep
+          parameters: location=${{ env.LOCATION }} resourceGroupName=${{ secrets.RESOURCE_GROUP_NAME }} subnetId=${{ secrets.APPLICATION_GATEWAY_SUBNET_ID }} storageName=${{ secrets.STORAGE_NAME }} customDomainStorageFQDN=${{ secrets.STORAGE_CUSTOM_DOMAIN }}
+
+      - uses: gliech/create-github-secret-action@v1
+        name: Write Function Name
+        with:
+          name: FUNCTION_NAME
+          value: ${{ steps.createResources.outputs.functionName }}
+          pa_token: ${{ secrets.PA_TOKEN }}
+
+      - uses: gliech/create-github-secret-action@v1
+        name: Write Storage Name
+        with:
+          name: STORAGE_NAME
+          value: ${{ steps.createResources.outputs.storageName }}
+          pa_token: ${{ secrets.PA_TOKEN }}          
+            
+      - uses: gliech/create-github-secret-action@v1
+        name: Write AppGW SubnetId
+        with:
+          name: APPLICATION_GATEWAY_SUBNET_ID
+          value: ${{ steps.createResources.outputs.appGwSubnetId }}
+          pa_token: ${{ secrets.PA_TOKEN }}    
+
+
+
+    
