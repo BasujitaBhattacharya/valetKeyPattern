@@ -124,15 +124,15 @@ Now you can go to the Actions tab and Run the **Create Azure Resources** [GitHub
 
 Now, you need to upload the image in the storage, you will have one that contains a container called pictures
 
-![container](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/refactoring/diagram/container.png)
+![container](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/main/diagram/container.png)
 
 Go to this container and upload the 3 pictures you will find in the GitHub repository under the **pictures** folder.
 
-![pictures](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/refactoring/diagram/upload.png)
+![pictures](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/main/diagram/upload.png)
 
 Next, go to the same Azure Storage in the networking tab and disable public network access.  You want to communicate with the storage only thru private endpoint.
 
-![pictures](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/refactoring/diagram/disablednetwork.png)
+![pictures](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/main/diagram/disablednetwork.png)
 
 ## Deploy Azure Function
 
@@ -144,4 +144,22 @@ Finally, you need to deploy and configure the Application Gateway.  To do so, ru
 
 ## Configure your custom domain
 
-In the previous steps you created a secret called **STORAGE_CUSTOM_DOMAIN**.
+In the previous steps you created a secret called **STORAGE_CUSTOM_DOMAIN**.  Use this value and create an A record related to the public IP of the Application Gateway.
+
+## Test the Azure Function
+
+Now, go to your deployed Azure Function, and click the **Code+Test button**.  From there you can test to get the SAS token, the possible values for the blobname are
+
+![pictures](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/main/diagram/test.png)
+
+<ul>
+  <li>corgi.jpg</li>
+  <li>peki1.jpg</li>
+  <li>pek2.jpg</li>
+</ul>
+
+Once you have the SAS token you can view the picture doing this.
+
+```
+https://<FQDN>/pictures/<imagename>?<sas token>
+```
