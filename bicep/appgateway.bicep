@@ -1,3 +1,5 @@
+targetScope = 'subscription'
+
 param location string
 param subnetId string
 param storageName string
