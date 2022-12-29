@@ -1,9 +1,6 @@
-targetScope = 'resourceGroup'
-
 param location string
 param subnetId string
 param storageName string
-param resourceGroupName string
 param customDomainStorageFQDN string
 
 @secure()
@@ -12,11 +9,7 @@ param certificate_data string
 @secure()
 param certificate_password string
 
-var suffix = uniqueString(rg.id)
-
-resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
-  name: resourceGroupName
-}
+var suffix = uniqueString(resourceGroup().id)
 
 var appgwName = 'agw-${suffix}'
 var appGwId = resourceId('Microsoft.Network/applicationGateways',appgwName)
