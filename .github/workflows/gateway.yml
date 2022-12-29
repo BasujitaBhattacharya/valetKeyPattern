@@ -31,8 +31,7 @@ on:
 jobs:
   create-azure-resources:
 
-    env:
-      DEPLOYMENT_NAME: gateway-deployment
+    env:      
       RESOURCE_GROUP_NAME: rg-valet-key-demo
       LOCATION: 'eastus'
 
@@ -56,8 +55,7 @@ jobs:
       - name: deploy        
         uses: azure/arm-deploy@v1
         with:
-          resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}                    
-          deploymentName:  ${{ env.DEPLOYMENT_NAME }}
+          resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}                              
           template: ./bicep/main.bicep
           parameters: location=${{ env.LOCATION }} resourceGroupName=${{ secrets.RESOURCE_GROUP_NAME }} subnetId=${{ secrets.APPLICATION_GATEWAY_SUBNET_ID }} storageName=${{ secrets.STORAGE_NAME }} customDomainStorageFQDN=${{ secrets.STORAGE_CUSTOM_DOMAIN }}
 
