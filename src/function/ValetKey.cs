@@ -43,8 +43,9 @@ namespace ValetKey
             blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
 
             var sasUri = blobClient.GenerateSasUri(blobSasBuilder);
+            string sasToken = sasUri.ToString().Split('?')[1];
             
-            return new OkObjectResult(sasUri.ToString());
+            return new OkObjectResult(sasToken);
         }
     }
 }
