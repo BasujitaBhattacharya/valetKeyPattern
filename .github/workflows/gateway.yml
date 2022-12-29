@@ -20,12 +20,6 @@
 name: Create and Configure Application Gateway
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'bicep/**/appgateway.bicep'
-      - '.github/workflows/gateway.yml'
   workflow_dispatch:     
 
 jobs:

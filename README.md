@@ -85,3 +85,37 @@ $ .\letsEncrypt.ps1 -certNames *.contoso.com -acmeContact john@contoso.com -aZSu
 When the command is finished, a new folder called **pa** will be created inside the scripts folder.
 
 If you browse in it inside the last child folder of **acme-v02.api.letsencrypt.org** you will see those files. The important file is called cert.pfx.
+
+# Create the Azure Resources
+
+# Create the Azure Resources
+
+## Get the base64 encoded value of your certificate
+
+You will need to create GitHub secrets to configure this repository.  Two of them are related to your certificate and needed when communicating with the Application Gateway.
+
+You will need to find the base64 value of your certificate and save it in a GitHub Secret.  To do so run the following command and get the value from the text file generated.
+
+```
+$fileContentBytes = get-content 'cert.pfx' -Encoding Byte
+[System.Convert]::ToBase64String($fileContentBytes) | Out-File 'pfx-bytes.txt'
+```
+
+## Create GitHub Secrets
+
+You will need to create some [GitHub repository secrets](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-encrypted-secrets-for-your-repository-and-organization-for-codespaces#adding-secrets-for-a-repository) first.  Here the list of secrets you will need to create.
+
+| Secret Name | Value | Link
+|-------------|-------|------|
+| AZURE_CREDENTIALS | The service principal credentials needed in the Github Action | [GitHub Action](https://github.com/marketplace/actions/azure-login)
+| AZURE_SUBSCRIPTION | The subscription ID where the resources will be created |
+| CERTIFICATE_DATA | The base64 value of your pfx certificate file |
+| CERTIFICATE_PASSWORD | The password of your pfx file |
+| PA_TOKEN | Needed to create GitHub repository secret within the GitHub action |  [Github Action](https://github.com/gliech/create-github-secret-action) |
+| STORAGE_CUSTOM_DOMAIN | The custom domain associated to the Public IP of the Application Gateway to retrieve the storage blob.
+| RESOURCE_GROUP_NAME | The name of the resource group where all resources will be created |
+| LOCATION | The location where all the resources will be created
+
+## Run Create Azure Resources GitHub Action
+
+Now you can go to the Actions tab and Run the **Create Azure Resources** [GitHub Actions](https://docs.github.com/en/actions).
