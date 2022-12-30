@@ -24,7 +24,7 @@ on:
   workflow_dispatch:
 
 env:
-  RG_NAME: 'rg-valet-key-demo'
+  RG_NAME: ${{ secrets.RESOURCE_GROUP_NAME }}
 
 jobs:
 
