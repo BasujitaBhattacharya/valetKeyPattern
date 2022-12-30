@@ -9,7 +9,7 @@ The SAS Token is returned using an Azure Function.
 
 ![architecture](https://raw.githubusercontent.com/hugogirard/valetKeyPattern/main/diagram/architecture.drawio.png)
 
-In this example the Azure Function doesn't use a private endpoint and this is for simplicity purpose.  In **production** all traffic should pass in the Application Gateway with a WAF.
+In this example the Azure Function doesn't use a private endpoint and this is for simplicity purpose.  In **production** all traffic should pass in the Application Gateway with a WAF.  Using a private endpoint for the Azure Function will mean you will need to have a self hosted runner to deploy the code.  This is oen reason why we kept the function public here.
 
 The function will return you a SAS token, you will need to construct the URL to retrieve the picture.
 
@@ -32,7 +32,7 @@ If you already own a public domain but you don't have a wild certificate here so
 
 ## Generating SSL certificate with Azure DNS Public Zone (optional)
 
-Here the tool you need to installe on your machine.
+Here the tool you need to install on your machine.
 
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
@@ -158,7 +158,7 @@ Now, go to your deployed Azure Function, and click the **Code+Test button**.  Fr
   <li>pek2.jpg</li>
 </ul>
 
-Once you have the SAS token you can view the picture doing this.
+Once you have the SAS token, you can view the picture doing this.
 
 ```
 https://<FQDN>/pictures/<imagename>?<sas token>
