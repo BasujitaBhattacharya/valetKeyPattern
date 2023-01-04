@@ -23,7 +23,7 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
-        working-directory: D:\a\valetKeyPattern\src\FrontEnd\JavaWebAppValeyKey
+        working-directory: D:\a\valetKeyPattern\valetKeyPattern\src\FrontEnd\JavaWebAppValeyKey
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
