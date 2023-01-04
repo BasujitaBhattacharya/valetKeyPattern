@@ -1,6 +1,7 @@
 name: Build and deploy JAR app to Azure Web App
 
 env:  
+  AZURE_WEBAPP_PACKAGE_PATH: ./src/FrontEnd/JavaWebAppValeyKey # set this to the path to your web app project
   JAVA_VERSION: '11'                  # set this to the Java version to use
 
 on:
@@ -23,11 +24,18 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
-        working-directory: ./src/FrontEnd/JavaWebAppValeyKey
+        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
-      - name: List directory
-        run: ls
-        working-directory: ./src/FrontEnd/JavaWebAppValeyKey
+      # - name: List directory
+      #   run: ls
+      #   working-directory: ./src/FrontEnd/JavaWebAppValeyKey
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.WEB_APP_NAME }}          
+          package:  '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.jar'
 
       # - name: Upload artifact for deployment job
       #   uses: actions/upload-artifact@v3
