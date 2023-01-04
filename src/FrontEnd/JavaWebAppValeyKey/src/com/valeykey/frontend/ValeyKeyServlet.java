@@ -45,7 +45,8 @@ public class ValeyKeyServlet extends HttpServlet {
 	protected String getToken(String imageName) throws IOException
 	{
 		imageName = imageName.concat(".jpg");
-		String httpTriggerUrl = ("https://func-7h4ps7yv2elfu.azurewebsites.net/api/{blobname}?code=DiHUqJaK77pMZ9zg48YKdXf4hqOHDw-MmiOH22K_WetnAzFuSa47ug==").replace("{blobname}", imageName);
+		String httpTriggerUrl = System.getenv("FunctionUrl");
+		httpTriggerUrl = httpTriggerUrl.replace("{blobname}", imageName);	
 		
 		URL urlObj = new URL(httpTriggerUrl);
 		
@@ -67,9 +68,9 @@ public class ValeyKeyServlet extends HttpServlet {
 	protected String generateImageUrl(String strSASToken, String strImageName) throws IOException
 	{
 		
-		String fqdn="www.bbhatta.com";
-		String path="/pictures/";
-		String strImageUrl="https://"+fqdn+path+strImageName+"?"+ strSASToken;
+		String fqdn=System.getenv("FQDN");
+		String path=System.getenv("Location");
+		String strImageUrl="https://"+fqdn+path+strImageName+".jpg?"+ strSASToken;
 		
 		return strImageUrl;
 	
