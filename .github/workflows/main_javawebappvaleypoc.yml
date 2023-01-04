@@ -15,6 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - run: mkdir -p D:\a\valetKeyPattern\valetKeyPattern\src\FrontEnd\JavaWebAppValeyKey\target
 
       - name: Set up Java version
         uses: actions/setup-java@v1
@@ -29,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.war'
+          path: D:\a\valetKeyPattern\valetKeyPattern\src\FrontEnd\JavaWebAppValeyKey\target\*.war
 
   deploy:
     runs-on: windows-latest
