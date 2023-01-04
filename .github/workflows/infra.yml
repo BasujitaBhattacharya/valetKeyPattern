@@ -79,4 +79,10 @@ jobs:
           value: ${{ steps.createResources.outputs.appGwSubnetId }}
           pa_token: ${{ secrets.PA_TOKEN }}
 
+      - uses: gliech/create-github-secret-action@v1
+        name: Write WebApp Name
+        with:
+          name: WEB_APP_NAME
+          value: ${{ steps.createResources.outputs.webappName }}
+          pa_token: ${{ secrets.PA_TOKEN }}
     

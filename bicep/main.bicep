@@ -77,3 +77,4 @@ module webapp 'modules/appservice/webapp.bicep' = {
 output functionName string = function.outputs.functionName
 output storageName string = storage.outputs.storageAccountName
 output appGwSubnetId string = vnet.outputs.subnetAppGwId
+output webappName string = webapp.outputs.webAppname
