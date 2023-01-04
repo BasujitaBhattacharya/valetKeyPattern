@@ -26,21 +26,21 @@ jobs:
         run: mvn clean install
         working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
-      # - name: List directory
-      #   run: ls
-      #   working-directory: ./src/FrontEnd/JavaWebAppValeyKey
+      - name: List directory
+        run: ls
+        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target
 
-      - name: Azure Login
-        uses: Azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      # - name: Azure Login
+      #   uses: Azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ secrets.WEB_APP_NAME }}          
-          package:  '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.jar'
+      # - name: Deploy to Azure Web App
+      #   id: deploy-to-webapp
+      #   uses: azure/webapps-deploy@v2
+      #   with:
+      #     app-name: ${{ secrets.WEB_APP_NAME }}          
+      #     package:  '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.jar'
 
       # - name: Upload artifact for deployment job
       #   uses: actions/upload-artifact@v3
