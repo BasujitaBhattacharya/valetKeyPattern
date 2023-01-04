@@ -65,6 +65,15 @@ module dnsStorage 'modules/dns/storage.bicep' = {
   }
 }
 
+module webapp 'modules/appservice/webapp.bicep' = {
+  scope: resourceGroup(rg.name)
+  name: 'webapp'
+  params: {
+    location: location
+    suffix: suffix
+  }
+}
+
 output functionName string = function.outputs.functionName
 output storageName string = storage.outputs.storageAccountName
 output appGwSubnetId string = vnet.outputs.subnetAppGwId
