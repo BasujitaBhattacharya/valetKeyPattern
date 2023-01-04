@@ -1,7 +1,12 @@
 
 <html>
-<h1>Please choose Image to View : </h1>
-<body>
+<br></br>
+<h1>Hello ! Please choose Image to View : </h1>
+<style>
+body {
+  background-color: #E6E6FA;
+}
+</style>
  <script Language="JavaScript">
         function getUrl(imageName) {
 
@@ -10,11 +15,11 @@
         }
    </script> 
 <form action="ValeyKeyServlet" method="post" target="_blank">
-    <a id="corgi" href="#" onclick="getUrl('corgi');return false;">Corgi</a> 
+    <a id="corgi" style="font-size: 25px;" href="#" onclick="getUrl('corgi');return false;">Corgi</a> 
     <br></br>
-    <a id="peki1" href="#" onclick="getUrl('peki1');return false;">Peki1</a> 
+    <a id="peki1" style="font-size: 25px;" href="#" onclick="getUrl('peki1');return false;">Peki1</a> 
      <br></br>
-    <a id="peki2" href="#" onclick="getUrl('peki2');return false;">Peki2</a> 
+    <a id="peki2" style="font-size: 25px;" href="#" onclick="getUrl('peki2');return false;">Peki2</a> 
      <br></br>
     
     <input type="hidden" name="imageName" id="imageName" value="" />
