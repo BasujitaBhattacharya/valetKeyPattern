@@ -1,9 +1,14 @@
 param location string
 param suffix string
 
+var linuxFxVersion = 'TOMCAT|9.0-java11'
+
 resource serverFarm 'Microsoft.Web/serverfarms@2020-06-01' = {
   name: 'plan-${suffix}'
   location: location
+  properties: {
+    reserved: true
+  }
   sku: {
     name: 'S1'
     tier: 'Standard'    
@@ -17,13 +22,7 @@ resource webApp 'Microsoft.Web/sites@2018-11-01' = {
   properties: {
     serverFarmId: serverFarm.id    
     siteConfig: {
-      appSettings: [
-        {
-          name: 'XDT_MicrosoftApplicationInsights_Mode'
-          value: 'default'
-        }    
-      ]
-      linuxFxVersion: 'TOMCAT|9.0-java11'
+      linuxFxVersion: linuxFxVersion
       alwaysOn: true      
     }    
     clientAffinityEnabled: false
