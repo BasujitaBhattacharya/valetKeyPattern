@@ -25,6 +25,10 @@ jobs:
         run: mvn clean install
         working-directory: ./src/FrontEnd/JavaWebAppValeyKey
 
+      - name: List directory
+        run: ls
+        working-directory: ./src/FrontEnd/JavaWebAppValeyKey
+
       # - name: Upload artifact for deployment job
       #   uses: actions/upload-artifact@v3
       #   with:
