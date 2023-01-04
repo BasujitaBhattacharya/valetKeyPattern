@@ -56,7 +56,7 @@ jobs:
           region: ${{ env.LOCATION }}
           deploymentName:  ${{ env.DEPLOYMENT_NAME }}
           template: ./bicep/main.json
-          parameters: location=${{ env.LOCATION }} rgName=${{ env.RESOURCE_GROUP_NAME }}
+          parameters: location=${{ env.LOCATION }} rgName=${{ env.RESOURCE_GROUP_NAME }} fqdnStorage=${{ secrets.STORAGE_CUSTOM_DOMAIN }}
 
       - uses: gliech/create-github-secret-action@v1
         name: Write Function Name

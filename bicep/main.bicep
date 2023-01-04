@@ -6,6 +6,8 @@ param location string
 @description('The name of the resource group')
 param rgName string
 
+param fqdnStorage string
+
 var suffix = uniqueString(rg.id)
 
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
@@ -71,6 +73,7 @@ module webapp 'modules/appservice/webapp.bicep' = {
   params: {
     location: location
     suffix: suffix
+    fqdnStorage: fqdnStorage
   }
 }
 
