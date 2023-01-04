@@ -23,12 +23,13 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
+        working-directory: /src/FrontEnd/JavaWebAppValeyKey
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: '${{ github.workspace }}/target/*.war'
 
   deploy:
     runs-on: windows-latest
@@ -50,4 +51,4 @@ jobs:
           app-name: 'JavaWebAppValeyPoc'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5A1E0EA41DA74E7183AC383CEF19DD9C }}
-          package: '*.jar'
+          package: '*.war'
