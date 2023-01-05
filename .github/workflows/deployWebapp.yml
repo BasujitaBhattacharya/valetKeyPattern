@@ -44,7 +44,7 @@ jobs:
           
       - name: List directory
         run: ls
-        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/JavaWebAppValeyKey-0.0.1-SNAPSHOT\WEB-INF 
+        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/JavaWebAppValeyKey-0.0.1-SNAPSHOT/WEB-INF 
         
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
