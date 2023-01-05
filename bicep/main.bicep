@@ -6,7 +6,6 @@ param location string
 @description('The name of the resource group')
 param rgName string
 
-param fqdnStorage string
 
 var suffix = uniqueString(rg.id)
 
@@ -67,17 +66,6 @@ module dnsStorage 'modules/dns/storage.bicep' = {
   }
 }
 
-module webapp 'modules/appservice/webapp.bicep' = {
-  scope: resourceGroup(rg.name)
-  name: 'webapp'
-  params: {
-    location: location
-    suffix: suffix
-    fqdnStorage: fqdnStorage
-  }
-}
-
 output functionName string = function.outputs.functionName
 output storageName string = storage.outputs.storageAccountName
 output appGwSubnetId string = vnet.outputs.subnetAppGwId
-output webappName string = webapp.outputs.webAppname

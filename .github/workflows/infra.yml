@@ -56,7 +56,7 @@ jobs:
           region: ${{ env.LOCATION }}
           deploymentName:  ${{ env.DEPLOYMENT_NAME }}
           template: ./bicep/main.json
-          parameters: location=${{ env.LOCATION }} rgName=${{ env.RESOURCE_GROUP_NAME }} fqdnStorage=${{ secrets.STORAGE_CUSTOM_DOMAIN }}
+          parameters: location=${{ env.LOCATION }} rgName=${{ env.RESOURCE_GROUP_NAME }}
 
       - uses: gliech/create-github-secret-action@v1
         name: Write Function Name
@@ -77,12 +77,5 @@ jobs:
         with:
           name: APPLICATION_GATEWAY_SUBNET_ID
           value: ${{ steps.createResources.outputs.appGwSubnetId }}
-          pa_token: ${{ secrets.PA_TOKEN }}
-
-      - uses: gliech/create-github-secret-action@v1
-        name: Write WebApp Name
-        with:
-          name: WEB_APP_NAME
-          value: ${{ steps.createResources.outputs.webappName }}
           pa_token: ${{ secrets.PA_TOKEN }}
     
