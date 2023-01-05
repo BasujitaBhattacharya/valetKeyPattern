@@ -40,4 +40,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ secrets.WEB_APP_NAME }}          
-          package:  '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.war'
+          package: '*.war'
