@@ -25,23 +25,12 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
         working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-        
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: java-app
-          path: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.war'
 
       - name: Azure Login
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-     
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: java-app
-          
+             
       - name: List directory
         run: ls
         working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/JavaWebAppValeyKey-0.0.1-SNAPSHOT/WEB-INF 
