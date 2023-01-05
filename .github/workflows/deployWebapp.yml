@@ -31,10 +31,6 @@ jobs:
         with:
           name: java-app
           path: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.war'
-          
-      - name: List directory
-        run: ls
-        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target
 
       - name: Azure Login
         uses: Azure/login@v1
@@ -46,6 +42,10 @@ jobs:
         with:
           name: java-app
           
+      - name: List directory
+        run: ls
+        working-directory: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target 
+        
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
